@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import javax.tools.DocumentationTool.Location;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
@@ -14,10 +13,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import com.google.common.io.Files;
 
 public class Loginto {
 
@@ -78,6 +73,7 @@ public class Loginto {
 		Select Nof = new Select(driver.findElement(By.xpath("//select[@id='adult_room']")));
 
 		Nof.selectByValue("2");
+		
 
 		Select Child = new Select(driver.findElement(By.xpath("// select[@id='child_room']")));
 
@@ -99,6 +95,7 @@ public class Loginto {
 
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void BookHotel() {
 		String FirstName = "Prabagaran";
 		String LastName = "Elangovan";
@@ -124,7 +121,7 @@ public class Loginto {
 
 		Select Vmont = new Select(driver.findElement(By.xpath("//select[@id='cc_exp_month']")));
 
-		Vmont.selectByValue("11");
+		Vmont.selectByValue("12");
 
 		Select Vyr = new Select(driver.findElement(By.xpath("//select[@id='cc_exp_year']")));
 
@@ -143,15 +140,25 @@ public class Loginto {
 	}
 
 	public static void TakeSnap() throws IOException, InterruptedException {
-		
+
 		Thread.sleep(10000);
 		TakesScreenshot scrShot = ((TakesScreenshot) driver);
-		
+
 		File SrcFile = scrShot.getScreenshotAs(OutputType.FILE);
-		
+
 		File file = new File("C:\\Users\\praba\\Pictures\\Hotel.png");
-		
+
 		FileHandler.copy(SrcFile, file);
+
+	}
+
+	public static void Logout() {
+
+		// *[@id='logout']
+
+		WebElement logout = driver.findElement(By.xpath("//*[@id='logout']"));
+
+		logout.click();
 
 	}
 
@@ -166,8 +173,10 @@ public class Loginto {
 		LocationHandle();
 
 		BookHotel();
-		
+
 		TakeSnap();
+		
+		Logout();
 
 		driver.quit();
 	}
